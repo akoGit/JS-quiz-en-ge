@@ -1,0 +1,69 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--background-color: hsl(120, 100%, 3%);
+	--button-color: purple;
+	--answer-color: hsl(120, 100%, 10%);
+	--answer-color-selected: hsl(123, 100%, 20%);
+	--font-color: white;
+	--outline-color: #fff8;
+}
+html {
+	block-size: 100%;
+	margin-left: calc(100vw - 100%);
+}
+
+body {
+	background-color:#0f0f0f;
+	color: var(--font-color);
+	font-family: "Montserrat", sans-serif;
+	line-height: 1.4;
+	min-block-size: 100%;
+	/* display: flex;
+	justify-content: center;
+	align-items: center; */
+
+}
+
+button {
+	font-size: inherit;
+	font-family: inherit;
+	background: none;
+	border: none;
+	color: inherit;
+	background-color: var(--button-color);
+	border-radius: .1rem;
+	padding: 0.5rem 1rem;
+	cursor: pointer;
+}
+
+button:disabled {
+	opacity: 0.6;
+	cursor: initial;
+}
+
+.visually-hidden {
+	position: absolute;
+	left: -10000rem;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+#app {
+	min-height:100vh;
+	/* display: flex;
+	justify-content: center;
+	flex-direction: column; */
+}
+.hljs {
+	max-width: 100%;
+    background-color: #0f0f0f!important; 
+    font-size: 1rem;
+	overflow-x: visible!important;
+	user-select: none!important;
+}
