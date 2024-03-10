@@ -14,9 +14,6 @@ const {count, progress } = defineProps<{
 			:class="{ active: index <= progress }"
 		></div>
 	</div>
-	<div id="progress" class="visually-hidden">
-		Progress: Question {{ progress + 1 }} out of {{ count }}
-	</div>
 </template>
 <style scoped>
 .progress {
@@ -24,6 +21,7 @@ const {count, progress } = defineProps<{
 	gap: 0.15rem;
     background-color: #2e2e2e;
     padding:1px 1px;
+	margin-bottom: 1em;
 
 }
 .bar {

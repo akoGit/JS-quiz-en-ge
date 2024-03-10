@@ -1,10 +1,15 @@
 <script setup lang="ts">
-import {ref, computed} from "vue"
+import {ref, computed, onMounted} from "vue"
 
 import Finish from "./components/Finish.vue";
 import Question from "./components/Question.vue";
 import Progress from "./components/Progress.vue"
 import Layout from "./components/Layout.vue";
+import Header from "./components/Header.vue"
+
+onMounted(() => {
+    document.cookie = 'locale=EN'
+})
 
 import { questions } from "./config"
 
@@ -16,7 +21,7 @@ const question = computed(() => questions[question_index.value])
 let evaluation: boolean[] = []
 
 function finish_question(correct: boolean) {
-   evaluation.push(correct)
+    evaluation.push(correct)
     update_question()
 }
 
@@ -37,11 +42,8 @@ function restart() {
 </script>
 
 <template>
-    <div class="source">
-        <span class="github_link">Questions and explanations from</span>
-        <br>
-        <a href="https://github.com/lydiahallie/javascript-questions" target="_blank">javascript-questions</a>
-    </div>
+  
+  <Header></Header>
     <Layout>
         <template v-if="!finished">
             <Progress :progress="question_index" :count="questions.length"></Progress>
@@ -52,20 +54,3 @@ function restart() {
     </Layout>
 </template>
 
-<style scoped>
-.github_link {
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI';
-    text-align: left;
-    
-}
-.source {
-    margin: .5em .1em;
-    width: max-content;
-    a {
-    color:grey;
-    font-family: monospace;
-    font-size:1rem;
-    }
-}
-
-</style>

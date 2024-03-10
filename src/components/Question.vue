@@ -19,7 +19,6 @@ function check_answer() {
 
     correct.value = selected_index.value == props.question.correct_answer_idx
 
-    // message.value = correct.value ? "this is correct" : "no correct answer is : " + correct_answer 
     explanation.value = props.question.explanation
 }
 
@@ -34,8 +33,7 @@ const isCorrect = (index: number): boolean => {
   return submitted.value && index === props.question.correct_answer_idx;
 };
 
-
-const isInCorrect = (index: number): boolean  => {
+const isIncorrect = (index: number): boolean  => {
     return (
     submitted.value &&
     index !== props.question.correct_answer_idx &&
@@ -46,6 +44,7 @@ const isInCorrect = (index: number): boolean  => {
 </script>
 
 <template>
+   
     <form @submit.prevent="check_answer">
 
         <h3>{{ props.question.id }}</h3>
@@ -56,7 +55,7 @@ const isInCorrect = (index: number): boolean  => {
                   class="answer" 
                   v-for="(answer, index) in props.question.answers"
                   :key="index"
-                  :class="{correct: isCorrect(index), incorrect: isInCorrect(index)}"
+                  :class="{correct: isCorrect(index), incorrect: isIncorrect(index)}"
                  > 
                 <input type="radio" :value="index" :name="props.question.id" v-model="selected_index"
                     :disabled="submitted">
@@ -68,20 +67,19 @@ const isInCorrect = (index: number): boolean  => {
             </Transition>
 
             <Transition >
-                <img v-show="isInCorrect(index)" alt="cancel logo" src="../assets/cancel-circular.png"/>
+                <img v-show="isIncorrect(index)" alt="cancel logo" src="../assets/cancel-circular.png"/>
             </Transition>
             </label>
         </section>
         <menu>
-            <button :disabled="submitted">Submit </button>
-            <button @click="next" type='button' v-if="submitted">Next </button>
+            <button :disabled="submitted">{{ $t('submit') }} </button>
+            <button @click="next" type='button' v-if="submitted">{{ $t('next') }} </button>
         </menu>
     </form>
     <br>
     <div v-if="submitted" class="explanation">
-        <span style="font-weight: bold;">Explanation</span>
-        <br>
-        <p>
+        <span class="expl">{{ $t('explanation') }}</span>
+        <p style="margin-top:.8em;">
             {{ explanation }}
         </p>
     </div>
@@ -99,6 +97,9 @@ const isInCorrect = (index: number): boolean  => {
   opacity: 0;
   transform:scale(.5);
 }
+.expl {
+    font-weight:bold;
+}
 
 img {
     width: 100%;
@@ -115,10 +116,14 @@ img {
 [type=radio] {
   min-width: 20px;
   min-height: 20px;
-  border: solid 1px #cccccc;
+  border:1px solid #cccccc;
   margin-right: 8px;
   position: relative;
+  transition:all .1s linear ;
 }
+[type=radio]:hover {
+    border:1px solid #545454;
+} 
 [type=radio]:checked::before {
   content: "";
   width: 14px;
